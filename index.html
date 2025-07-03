@@ -9,13 +9,12 @@
         @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&display=swap');
 
         :root {
-            /* [수정] 색상 변수 변경: Peach를 기본 배경으로 설정 */
             --color-peach: #ffe5b4;
-            --color-primary: #E87A5D; /* Peach와 어울리는 포인트 색상으로 변경 */
+            --color-primary: #E87A5D; 
             --color-secondary: #ffca99;
             
-            --color-text: #3d352e; /* 텍스트 가독성을 위해 어두운 색으로 변경 */
-            --glass-bg: rgba(255, 255, 255, 0.45);
+            --color-text: #3d352e;
+            --glass-bg: rgba(255, 255, 255, 0.45); /* 글라스 카드 배경 */
             --glass-border: 1px solid rgba(255, 255, 255, 0.2);
             --shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.1);
         }
@@ -26,7 +25,6 @@
         body {
             font-family: 'Noto Sans KR', sans-serif;
             color: var(--color-text);
-            /* [수정] 배경을 Peach 단색으로 변경하고 그라데이션 애니메이션 제거 */
             background-color: var(--color-peach); 
             line-height: 1.7;
             overflow-x: hidden;
@@ -35,7 +33,7 @@
         body::before {
             content: ''; position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
             background-image: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIzMDAiIGhlaWdodD0iMzAwIj48ZmlsdGVyIGlkPSJub2lzZSI+PGZlVHVyYnVsZW5jZSB0eXBlPSJmcmFjdGFsTm9pc2UiIGJhc2VGcmVxdWVuY3k9IjAuOCIgbnVtT2N0YXZlcz0iNCIgc3RpdGNoVGlsZXM9InN0aXRjaCIvPjxmZUNvbG9yTWF0cml4IHR5cGU9InNhdHVyYXRlIiB2YWx1ZXM9IjAiLz48L2ZpbHRlcj48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWx0ZXI9InVybCgjbnoaXNlKSIvPjwvc3ZnPg==');
-            opacity: 0.05; /* 노이즈 효과를 약간 더 잘 보이게 조정 */
+            opacity: 0.05;
             z-index: -1;
         }
         
@@ -55,7 +53,6 @@
         }
 
         .section-title { text-align: center; margin-bottom: 60px; }
-        /* [수정] 흰색 텍스트가 Peach 배경에서 보이지 않으므로 어두운 색으로 변경 */
         .section-title h2 { font-size: 2.8rem; font-weight: 900; margin-bottom: 10px; color: var(--color-text); text-shadow: 0 2px 10px rgba(0,0,0,0.1); }
         .section-title p { font-size: 1.2rem; color: #5c5248; }
         .glass-card {
@@ -63,9 +60,10 @@
             border-radius: 20px; border: var(--glass-border); box-shadow: var(--shadow); padding: 40px;
         }
         
+        /* [수정] 네비게이션 바(헤더)에 리퀴드 글라스 디자인 적용 */
         .header {
             position: fixed; top: 0; left: 0; width: 100%; padding: 15px 0; z-index: 1000; transition: all 0.3s ease;
-            background: rgba(255, 229, 180, 0.4); /* 헤더 배경도 Peach 계열로 변경 */
+            background: rgba(255, 255, 255, 0.35); /* 반투명 흰색 배경 */
             backdrop-filter: blur(15px); -webkit-backdrop-filter: blur(15px);
             border-bottom: 1px solid rgba(255, 255, 255, 0.2);
         }
@@ -89,7 +87,7 @@
             overflow: hidden;
         }
         .fixed-content {
-            color: #4b3a25; /* 텍스트 색상 변경 */
+            color: #4b3a25;
             font-size: 6rem;
             font-weight: 900;
             text-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
@@ -109,46 +107,46 @@
         /*      [수정] 핵심 가치 섹션 스타일       */
         /* ================================== */
         #values-trigger-area {
-            height: 300vh; /* 3개의 카드를 위해 300vh 높이 설정 */
+            height: 300vh;
             position: relative;
         }
-        /* .sticky-container 스타일은 기존 것을 재사용 */
 
-        /* 기존 values-grid 제거 */
         .value-card {
-            /* Full-screen으로 보이도록 스타일 수정 */
             position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
+            width: 90%;
+            max-width: 800px; /* 카드의 최대 너비 설정 */
+            
+            /* Glassmorphism 스타일 적용 */
+            background: var(--glass-bg);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-radius: 25px;
+            border: var(--glass-border);
+            box-shadow: var(--shadow);
+            
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
             text-align: center;
-            padding: 40px;
-            
-            /* Glassmorphism 효과 제거 (전체 화면이므로) */
-            background: transparent;
-            border: none;
-            box-shadow: none;
+            padding: 60px 40px;
             
             /* 전환 효과 */
             opacity: 0;
-            transform: translateY(30px);
+            transform: translateY(30px) scale(0.98);
             transition: opacity 0.8s ease-out, transform 0.8s ease-out;
             visibility: hidden;
         }
-        .value-card.active { /* 활성화된 카드 스타일 */
+        .value-card.active {
             opacity: 1;
-            transform: translateY(0);
+            transform: translateY(0) scale(1);
             visibility: visible;
         }
-        /* Full-screen에 맞게 폰트 크기 대폭 키움 */
-        .value-card .icon { font-size: 7rem; margin-bottom: 40px; }
-        .value-card h3 { font-size: 5rem; font-weight: 900; margin-bottom: 25px; color: #4b3a25; }
-        .value-card p { font-size: 1.5rem; max-width: 600px; line-height: 1.7; }
+        
+        /* [수정] 글라스 카드에 맞게 폰트/아이콘 크기 재조정 */
+        .value-card .icon { font-size: 4.5rem; margin-bottom: 30px; }
+        .value-card h3 { font-size: 2.8rem; font-weight: 900; margin-bottom: 20px; color: #4b3a25; }
+        .value-card p { font-size: 1.2rem; max-width: 500px; line-height: 1.7; }
         
         /* --- 나머지 섹션 스타일 --- */
         .projects-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 30px; }
@@ -186,7 +184,6 @@
         .modal-body { line-height: 1.8; white-space: pre-wrap; color: #333; }
         .close-button { position: absolute; top: 20px; right: 25px; font-size: 2rem; color: #888; cursor: pointer; transition: color 0.3s ease; }
         .close-button:hover { color: var(--color-text); }
-        /* [수정] 푸터 텍스트 색상 변경 */
         .footer { background-color: rgba(0,0,0,0.05); color: var(--color-text); padding: 50px 0; text-align: center; }
         .footer .logo { font-size: 1.8rem; font-weight: 700; margin-bottom: 15px; }
         .footer .email { margin-bottom: 20px; font-size: 1.1rem; }
@@ -198,10 +195,10 @@
             .fixed-content { font-size: 3.5rem; }
             .section-title h2 { font-size: 2.2rem; } .glass-card { padding: 30px; } .modal-content { padding: 30px; }
             .notice-header, .notice-item { grid-template-columns: 1fr 4fr 2fr; padding: 10px 0; font-size: 0.9rem; }
-            /* [수정] 모바일에서 핵심가치 폰트 크기 조정 */
-            .value-card h3 { font-size: 2.5rem; }
-            .value-card .icon { font-size: 4rem; }
-            .value-card p { font-size: 1.1rem; }
+            .value-card { padding: 40px 25px; }
+            .value-card h3 { font-size: 2.2rem; }
+            .value-card .icon { font-size: 3.5rem; }
+            .value-card p { font-size: 1rem; }
         }
     </style>
 </head>
@@ -214,7 +211,7 @@
                 <ul>
                     <li><a href="#animation-trigger-area">홈</a></li>
                     <li><a href="#vision">비전</a></li>
-                    <li><a href="#values-trigger-area">핵심가치</a></li> <!-- [수정] 링크 주소 변경 -->
+                    <li><a href="#values-trigger-area">핵심가치</a></li>
                     <li><a href="#projects">주요사업</a></li>
                     <li><a href="#notice-board">공지사항</a></li>
                 </ul>
@@ -243,14 +240,14 @@
         </div>
     </section>
 
-    <!-- [수정] 핵심 가치 섹션 HTML 구조 변경 -->
+    <!-- 핵심 가치 제목 -->
     <section id="values" class="container">
         <div class="section-title"><h2>핵심 가치</h2><p>배움과 협력을 통해 성장하는 공동체</p></div>
     </section>
 
+    <!-- [수정] 핵심 가치 스크롤 애니메이션 영역 (디자인 변경됨) -->
     <div id="values-trigger-area">
         <div class="sticky-container">
-            <!-- 3개의 value-card가 여기에 위치합니다 -->
             <div class="value-card"><div class="icon">💡</div><h3>교육</h3><p>문제해결, 의사소통 등 청년의 역량강화를 위해 노력합니다.</p></div>
             <div class="value-card"><div class="icon">🤝</div><h3>협력</h3><p>청년, 세종시 및 유관기관과의 긴밀한 네트워크를 통해 발전합니다.</p></div>
             <div class="value-card"><div class="icon">🚀</div><h3>성장</h3><p>다양한 사업을 통해 청년의 삶의 질 향상과 지속가능한 성장을 실현합니다.</p></div>
@@ -319,18 +316,17 @@
     </div>
 
     <script>
+        // 자바스크립트는 이전과 동일하게 작동하므로 수정할 필요가 없습니다.
+        // CSS와 HTML의 구조 변경만으로 원하는 디자인과 기능을 모두 구현했습니다.
         document.addEventListener('DOMContentLoaded', () => {
             const animationArea = document.querySelector('#animation-trigger-area');
             const line = document.querySelector('#animated-line');
             const sections = document.querySelectorAll('section');
 
-            // --- [수정] 핵심 가치 스크롤 애니메이션 요소 ---
             const valuesTriggerArea = document.querySelector('#values-trigger-area');
             const valueCards = document.querySelectorAll('#values-trigger-area .value-card');
 
-            // --- 스크롤에 따라 실행될 함수들 ---
             const handleScroll = () => {
-                // 라인 드로잉 애니메이션
                 if (animationArea && line) {
                     const rect = animationArea.getBoundingClientRect();
                     const animationScrollHeight = animationArea.offsetHeight - window.innerHeight;
@@ -338,26 +334,24 @@
                     
                     if (scrollFraction >= 0) {
                         const pathLength = line.getTotalLength();
-                        line.style.strokeDasharray = pathLength;
-                        const drawLength = pathLength * scrollFraction;
-                        line.style.strokeDashoffset = pathLength - drawLength;
+                        if(pathLength > 0) { // path가 로드된 후에만 실행
+                            line.style.strokeDasharray = pathLength;
+                            const drawLength = pathLength * scrollFraction;
+                            line.style.strokeDashoffset = pathLength - drawLength;
+                        }
                     }
                 }
 
-                // --- [수정] 핵심 가치 스크롤 애니메이션 로직 ---
                 if (valuesTriggerArea && valueCards.length > 0) {
                     const rect = valuesTriggerArea.getBoundingClientRect();
                     const scrollHeight = valuesTriggerArea.offsetHeight - window.innerHeight;
                     const scrollFraction = Math.max(0, Math.min(1, -rect.top / scrollHeight));
 
-                    // 현재 스크롤 위치에 따라 활성화할 카드의 인덱스 계산
-                    // Math.min을 사용하여 스크롤이 영역을 벗어나도 마지막 카드가 유지되도록 함
                     const activeIndex = Math.min(
                         valueCards.length - 1,
                         Math.floor(scrollFraction * valueCards.length)
                     );
 
-                    // 모든 카드의 active 클래스를 제거하고 현재 카드에만 추가
                     valueCards.forEach((card, index) => {
                         if (index === activeIndex) {
                             card.classList.add('active');
@@ -368,7 +362,6 @@
                 }
             };
             
-            // --- 각 섹션 등장 애니메이션 ---
             const observer = new IntersectionObserver(entries => {
                 entries.forEach(entry => {
                     if (entry.isIntersecting) {
@@ -378,13 +371,10 @@
             }, { threshold: 0.1 });
             sections.forEach(section => observer.observe(section));
 
-            // 스크롤 이벤트 리스너 등록
             window.addEventListener('scroll', handleScroll);
+            handleScroll(); // 초기 로드 시 실행
 
-            // 초기 로딩 시 스크롤 위치에 맞게 한번 실행
-            handleScroll();
-
-            // --- 공지사항 게시판 기능 (기존과 동일) ---
+            // --- 공지사항 게시판 기능 ---
             const postData = [
                 { id: 1, title: "2025년「세종청년리더멘토링」멘티 모집 공고", date: "2025. 05. 31.", content: `세종시 청년들의 성장을 지원할 '2025 세종청년리더멘토링'의 멘티를 모집합니다.\n\nⅠ. 사업 개요\n- 사업명: 2025년 세종청년리더멘토링\n- 주관/지원: 청년의길 / 세종특별자치시청\n- 사업기간: 2025년 5월 ~ 11월\n- 지원사항: 수료증 발급, 다과비 지원 등\n\nⅡ. 모집 안내 (멘티)\n- 지원 대상: 멘티 35명 (7개팀 내외 운영 지원)\n- 지원 자격: 관내 주민등록 거주, 관내 대학·직장에 소속된 청년 (19~39세)\n- 선발 기준: 세종청년리더멘토링에 관심을 갖고 활동에 적극적으로 참여할 수 있는 자, 사업목적에 부합한 자\n- 우대 사항: 청년의길 회원 및 청년활동가 경험자 (세종청년정책네트워크 회원 등)\n\nⅢ. 운영 일정\n- 멘티 신청 및 선발: 5월 ~ 6월 중\n- 멘토, 멘티 매칭: 6월 중\n- 멘토링: 6월 ~ 11월\n- 오리엔테이션: 6월 중\n- 성장 단계(봉사활동, 특강, 네트워킹): 8월 ~ 9월\n- 도약 단계(토론회, 성과공유회): 10월 ~ 11월\n\nⅣ. 신청 방법\n- 신청 기간: 2025. 5. 31.(토) ~ 6. 12.(목)\n- 신청 링크: https://naver.me/xdjXJVtY\n\n여러분의 많은 관심과 참여를 기다립니다.` },
                 { id: 2, title: "2025년「세종청년리더멘토링」멘토 모집 공고", date: "2025. 06. 05.", content: `세종시 청년들에게 귀한 경험과 지혜를 나누어 주실 '2025 세종청년리더멘토링'의 멘토를 모집합니다.\n\nⅠ. 사업 개요\n- 사업명: 2025년 세종청년리더멘토링\n- 주관/지원: 청년의길 / 세종특별자치시청\n- 사업기간: 2025년 5월 ~ 11월\n- 지원사항: 수료증 발급, 다과비 지원 등\n\nⅡ. 모집 안내 (멘토)\n- 지원 대상: 멘토 7명\n- 지원 자격: 각 분야의 성공경험 또는 전문지식을 겸비한 분\n- 선발 기준: 세종청년리더멘토링에 관심을 갖고 활동에 적극적으로 참여할 수 있는 자, 사업목적에 부합한 자\n- 우대 사항: 관내 주민등록 거주, 관내 대학·직장에 소속된 자 또는 청년(19~39세)\n\nⅢ. 운영 일정\n- 멘토 선발 및 위촉: 6월 중\n- 멘토, 멘티 매칭: 6월 중\n- 멘토링: 6월 ~ 11월\n- 오리엔테이션: 6월 중\n- 성장 단계(봉사활동, 특강, 네트워킹): 8월 ~ 9월\n- 도약 단계(토론회, 성과공유회): 10월 ~ 11월\n\nⅣ. 신청 방법\n- 신청 기간: 2025. 6. 5.(목) ~ 6. 19.(목)\n  ※ 멘토 승인 하에 연중 모집 가능\n- 신청 링크: https://naver.me/GOhF22uy\n\n청년들의 든든한 길잡이가 되어주실 여러분의 참여를 기다립니다.` }
