@@ -20,16 +20,8 @@
         }
 
         /* --- 기본 스타일 리셋 --- */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        html {
-            scroll-behavior: smooth;
-        }
-
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
         body {
             font-family: 'Noto Sans KR', sans-serif;
             color: var(--color-text);
@@ -40,147 +32,65 @@
             overflow-x: hidden;
             position: relative;
         }
-
         body::before {
-            content: '';
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100vw;
-            height: 100vh;
+            content: ''; position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
             background-image: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIzMDAiIGhlaWdodD0iMzAwIj48ZmlsdGVyIGlkPSJub2lzZSI+PGZlVHVyYnVsZW5jZSB0eXBlPSJmcmFjdGFsTm9pc2UiIGJhc2VGcmVxdWVuY3k9IjAuOCIgbnVtT2N0YXZlcz0iNCIgc3RpdGNoVGlsZXM9InN0aXRjaCIvPjxmZUNvbG9yTWF0cml4IHR5cGU9InNhdHVyYXRlIiB2YWx1ZXM9IjAiLz48L2ZpbHRlcj48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWx0ZXI9InVybCgjbnoaXNlKSIvPjwvc3ZnPg==');
-            opacity: 0.03;
-            z-index: -1;
+            opacity: 0.03; z-index: -1;
         }
-
         @keyframes gradientBG {
             0% { background-position: 0% 50%; }
             50% { background-position: 100% 50%; }
             100% { background-position: 0% 50%; }
         }
-
         a { text-decoration: none; color: inherit; }
         ul { list-style: none; }
-
-        .container {
-            max-width: 1100px;
-            margin: 0 auto;
-            padding: 0 2rem;
-        }
-
-        section {
-            padding: 120px 0;
-            opacity: 0;
-            transform: translateY(50px);
-            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
-        }
-
+        .container { max-width: 1100px; margin: 0 auto; padding: 0 2rem; }
+        section { padding: 120px 0; opacity: 0; transform: translateY(50px); transition: opacity 0.8s ease-out, transform 0.8s ease-out; }
         section.visible { opacity: 1; transform: translateY(0); }
-
-        .section-title {
-            text-align: center;
-            margin-bottom: 60px;
-        }
-
-        .section-title h2 {
-            font-size: 2.8rem;
-            font-weight: 900;
-            margin-bottom: 10px;
-            color: #fff;
-            text-shadow: 0 2px 10px rgba(0,0,0,0.1);
-        }
-
-        .section-title p {
-            font-size: 1.2rem;
-            color: rgba(255,255,255,0.8);
-        }
-
+        .section-title { text-align: center; margin-bottom: 60px; }
+        .section-title h2 { font-size: 2.8rem; font-weight: 900; margin-bottom: 10px; color: #fff; text-shadow: 0 2px 10px rgba(0,0,0,0.1); }
+        .section-title p { font-size: 1.2rem; color: rgba(255,255,255,0.8); }
         .glass-card {
-            background: var(--glass-bg);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            border-radius: 20px;
-            border: var(--glass-border);
-            box-shadow: var(--shadow);
-            padding: 40px;
+            background: var(--glass-bg); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+            border-radius: 20px; border: var(--glass-border); box-shadow: var(--shadow); padding: 40px;
         }
-
         .header {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            padding: 15px 0;
-            z-index: 1000;
-            transition: all 0.3s ease;
-            background: rgba(255, 255, 255, 0.3);
-            backdrop-filter: blur(15px);
-            -webkit-backdrop-filter: blur(15px);
+            position: fixed; top: 0; left: 0; width: 100%; padding: 15px 0; z-index: 1000; transition: all 0.3s ease;
+            background: rgba(255, 255, 255, 0.3); backdrop-filter: blur(15px); -webkit-backdrop-filter: blur(15px);
             border-bottom: 1px solid rgba(255,255,255,0.1);
         }
-
         .header .container { display: flex; justify-content: space-between; align-items: center; }
         .logo a { font-size: 1.5rem; font-weight: 700; color: var(--color-text); }
         .nav-menu ul { display: flex; gap: 30px; }
-        .nav-menu a {
-            font-weight: 500;
-            color: #555;
-            position: relative;
-            padding: 5px 0;
-            transition: color 0.3s ease;
-        }
+        .nav-menu a { font-weight: 500; color: #555; position: relative; padding: 5px 0; transition: color 0.3s ease; }
         .nav-menu a::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 0;
-            height: 2px;
-            background: var(--color-primary);
-            transition: width 0.3s ease;
+            content: ''; position: absolute; bottom: 0; left: 50%; transform: translateX(-50%);
+            width: 0; height: 2px; background: var(--color-primary); transition: width 0.3s ease;
         }
         .nav-menu a:hover { color: var(--color-text); }
         .nav-menu a:hover::after { width: 100%; }
-
-        #hero {
-            height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            text-align: center;
-            color: white;
-            padding: 0;
-        }
+        #hero { height: 100vh; display: flex; align-items: center; justify-content: center; text-align: center; color: white; padding: 0; }
         .hero-content { text-shadow: 0 3px 15px rgba(0,0,0,0.2); }
         .hero-content h1 { font-size: 5rem; font-weight: 900; margin-bottom: 1rem; letter-spacing: -2px; }
         .hero-content p { font-size: 1.6rem; font-weight: 400; }
-        
         #vision .vision-content { text-align: center; padding: 80px 40px; }
         .vision-text .vision-quote { font-size: 2.8rem; font-weight: 700; margin-bottom: 30px; color: var(--color-primary); }
         .vision-text .purpose { max-width: 800px; margin: 0 auto; font-size: 1.1rem; line-height: 1.8; font-weight: 500; }
-
         .values-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 30px; }
         .value-card { padding: 40px 30px; text-align: center; transition: transform 0.3s ease, box-shadow 0.3s ease; }
         .value-card:hover { transform: translateY(-10px); box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1); }
         .value-card .icon { font-size: 3rem; margin-bottom: 20px; color: var(--color-primary); }
         .value-card h3 { font-size: 1.5rem; font-weight: 700; margin-bottom: 15px; }
-
         .projects-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 30px; }
         .project-card { transition: transform 0.3s ease; overflow: hidden; padding: 0; }
         .project-card:hover { transform: translateY(-10px); }
         .project-card img { width: 100%; height: 220px; object-fit: cover; display: block; }
         .project-card .text-content { padding: 30px; }
         .project-card h3 { font-size: 1.6rem; font-weight: 700; color: var(--color-primary); margin-bottom: 10px; }
-        
         .notice-board-wrapper { padding: 20px 30px; }
         .notice-header, .notice-item {
-            display: grid;
-            grid-template-columns: 1fr 5fr 2fr;
-            padding: 15px 0;
-            align-items: center;
-            text-align: center;
-            border-bottom: 1px solid rgba(0,0,0,0.1);
+            display: grid; grid-template-columns: 1fr 5fr 2fr; padding: 15px 0;
+            align-items: center; text-align: center; border-bottom: 1px solid rgba(0,0,0,0.1);
         }
         .notice-header { font-weight: 700; color: var(--color-text); font-size: 1.1rem; border-bottom: 2px solid var(--color-secondary); }
         .notice-item:last-child { border-bottom: none; }
@@ -188,76 +98,32 @@
         .notice-item .title-link:hover { color: var(--color-primary); }
         .notice-item .date { color: #666; font-size: 0.9rem; }
         .notice-item .new-badge { background-color: var(--color-primary); color: white; font-size: 0.7rem; padding: 2px 6px; border-radius: 5px; margin-left: 8px; font-weight: bold; }
-
-        /* --- 공지사항 모달 (스타일 변경) --- */
         .modal-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0,0,0,0.6); /* 배경을 조금 더 어둡게 */
-            z-index: 2000;
-            display: none;
-            justify-content: center;
-            align-items: center;
-            opacity: 0;
-            transition: opacity 0.3s ease;
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.6);
+            z-index: 2000; display: none; justify-content: center; align-items: center; opacity: 0; transition: opacity 0.3s ease;
         }
         .modal-overlay.active { display: flex; opacity: 1; }
-        
         .modal-content {
-            /* 모달 전용 밝은 글래스 스타일 적용 */
-            background: rgba(255, 253, 250, 0.95); /* 거의 불투명한 따뜻한 흰색 배경 */
-            backdrop-filter: blur(15px);
-            -webkit-backdrop-filter: blur(15px);
-            border-radius: 20px;
-            border: 1px solid rgba(255, 255, 255, 0.3);
-            box-shadow: 0 10px 40px rgba(0,0,0,0.2);
-            padding: 40px;
-
-            /* 레이아웃 및 크기 설정 */
-            max-width: 700px;
-            width: 90%;
-            max-height: 80vh;
-            overflow-y: auto;
-            position: relative;
-            transform: scale(0.9);
-            transition: transform 0.3s ease;
+            background: rgba(255, 253, 250, 0.95); backdrop-filter: blur(15px); -webkit-backdrop-filter: blur(15px);
+            border-radius: 20px; border: 1px solid rgba(255, 255, 255, 0.3); box-shadow: 0 10px 40px rgba(0,0,0,0.2); padding: 40px;
+            max-width: 700px; width: 90%; max-height: 80vh; overflow-y: auto; position: relative;
+            transform: scale(0.9); transition: transform 0.3s ease;
         }
         .modal-overlay.active .modal-content { transform: scale(1); }
-        
         .modal-header { padding-bottom: 15px; border-bottom: 1px solid rgba(0,0,0,0.1); margin-bottom: 20px; }
         .modal-header h2 { font-size: 1.8rem; margin-bottom: 5px; color: #222; }
         .modal-header .date { font-size: 0.9rem; color: #555; }
         .modal-body { line-height: 1.8; white-space: pre-wrap; color: #333; }
-        
-        .close-button {
-            position: absolute;
-            top: 20px;
-            right: 25px;
-            font-size: 2rem;
-            color: #888;
-            cursor: pointer;
-            transition: color 0.3s ease;
-        }
+        .close-button { position: absolute; top: 20px; right: 25px; font-size: 2rem; color: #888; cursor: pointer; transition: color 0.3s ease; }
         .close-button:hover { color: var(--color-text); }
-
-        /* --- 푸터 --- */
         .footer { background-color: transparent; color: white; padding: 50px 0; text-align: center; }
         .footer .logo { font-size: 1.8rem; font-weight: 700; margin-bottom: 15px; text-shadow: 0 1px 5px rgba(0,0,0,0.1); }
         .footer .email { margin-bottom: 20px; font-size: 1.1rem; }
         .footer .email a { color: var(--color-primary); font-weight: 500; }
         .footer .copyright { font-size: 0.9rem; color: rgba(255,255,255,0.7); }
-
-        /* --- 반응형 디자인 --- */
         @media (max-width: 768px) {
-            .nav-menu { display: none; }
-            .hero-content h1 { font-size: 3.5rem; }
-            .hero-content p { font-size: 1.2rem; }
-            .section-title h2 { font-size: 2.2rem; }
-            .glass-card { padding: 30px; }
-            .modal-content { padding: 30px; }
+            .nav-menu { display: none; } .hero-content h1 { font-size: 3.5rem; } .hero-content p { font-size: 1.2rem; }
+            .section-title h2 { font-size: 2.2rem; } .glass-card { padding: 30px; } .modal-content { padding: 30px; }
             .notice-header, .notice-item { grid-template-columns: 1fr 4fr 2fr; padding: 10px 0; font-size: 0.9rem; }
         }
     </style>
@@ -282,10 +148,7 @@
 
     <!-- 히어로 섹션 -->
     <section id="hero">
-        <div class="hero-content">
-            <h1>청년의 길</h1>
-            <p>서로의 길을 밝혀주는 청년과 세종</p>
-        </div>
+        <div class="hero-content"><h1>청년의 길</h1><p>서로의 길을 밝혀주는 청년과 세종</p></div>
     </section>
 
     <!-- 비전과 목적 -->
@@ -293,63 +156,37 @@
         <div class="vision-content glass-card">
             <div class="vision-text">
                 <div class="vision-quote">"서로의 길을 밝혀주는 청년과 세종"</div>
-                <p class="purpose">
-                    청년의 권리보호 및 신장, 정책참여 확대, 고용촉진, 능력개발, 복지향상을 통해 모든 영역에서 청년의 삶의 질을 향상하고 지방 활성화에 기여함을 목적으로 합니다.
-                </p>
+                <p class="purpose">청년의 권리보호 및 신장, 정책참여 확대, 고용촉진, 능력개발, 복지향상을 통해 모든 영역에서 청년의 삶의 질을 향상하고 지방 활성화에 기여함을 목적으로 합니다.</p>
             </div>
         </div>
     </section>
 
     <!-- 핵심 가치 -->
     <section id="values" class="container">
-        <div class="section-title">
-            <h2>핵심 가치</h2>
-            <p>배움과 협력을 통해 성장하는 공동체</p>
-        </div>
+        <div class="section-title"><h2>핵심 가치</h2><p>배움과 협력을 통해 성장하는 공동체</p></div>
         <div class="values-grid">
-            <div class="value-card glass-card">
-                <div class="icon">💡</div>
-                <h3>교육</h3>
-                <p>문제해결, 의사소통 등 청년의 역량강화를 위해 노력합니다.</p>
-            </div>
-            <div class="value-card glass-card">
-                <div class="icon">🤝</div>
-                <h3>협력</h3>
-                <p>청년, 세종시 및 유관기관과의 긴밀한 네트워크를 통해 발전합니다.</p>
-            </div>
-            <div class="value-card glass-card">
-                <div class="icon">🚀</div>
-                <h3>성장</h3>
-                <p>다양한 사업을 통해 청년의 삶의 질 향상과 지속가능한 성장을 실현합니다.</p>
-            </div>
+            <div class="value-card glass-card"><div class="icon">💡</div><h3>교육</h3><p>문제해결, 의사소통 등 청년의 역량강화를 위해 노력합니다.</p></div>
+            <div class="value-card glass-card"><div class="icon">🤝</div><h3>협력</h3><p>청년, 세종시 및 유관기관과의 긴밀한 네트워크를 통해 발전합니다.</p></div>
+            <div class="value-card glass-card"><div class="icon">🚀</div><h3>성장</h3><p>다양한 사업을 통해 청년의 삶의 질 향상과 지속가능한 성장을 실현합니다.</p></div>
         </div>
     </section>
 
     <!-- 주요 사업 -->
     <section id="projects" class="container">
-        <div class="section-title">
-            <h2>주요 사업</h2>
-            <p>청년의 성장을 위한 다양한 프로그램을 운영합니다.</p>
-        </div>
+        <div class="section-title"><h2>주요 사업</h2><p>청년의 성장을 위한 다양한 프로그램을 운영합니다.</p></div>
         <div class="projects-grid">
             <div class="project-card glass-card">
                 <img src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?q=80&w=2071&auto=format&fit=crop" alt="교육 프로그램">
-                <div class="text-content">
-                    <h3>교육 프로그램 운영</h3>
-                    <p>세종청년리더멘토링, 봉사활동 등 청년의 역량과 사회성을 키우는 교육 프로그램을 제공합니다.</p>
-                </div>
+                <div class="text-content"><h3>교육 프로그램 운영</h3><p>세종청년리더멘토링, 봉사활동 등 청년의 역량과 사회성을 키우는 교육 프로그램을 제공합니다.</p></div>
             </div>
             <div class="project-card glass-card">
                 <img src="https://images.unsplash.com/photo-1540575467063-178a50c2df87?q=80&w=2070&auto=format&fit=crop" alt="네트워크 행사">
-                <div class="text-content">
-                    <h3>네트워크 행사 운영</h3>
-                    <p>세종청년리더 포럼, 취·창업 특강 등 청년들이 교류하고 정보를 얻을 수 있는 기회를 만듭니다.</p>
-                </div>
+                <div class="text-content"><h3>네트워크 행사 운영</h3><p>세종청년리더 포럼, 취·창업 특강 등 청년들이 교류하고 정보를 얻을 수 있는 기회를 만듭니다.</p></div>
             </div>
         </div>
     </section>
 
-    <!-- 공지사항 -->
+    <!-- 공지사항 (HTML 목록 업데이트) -->
     <section id="notice-board" class="container">
         <div class="section-title">
             <h2>공지사항</h2>
@@ -362,32 +199,20 @@
                 <div>작성일</div>
             </div>
             <div class="notice-item">
-                <div>05</div>
-                <a class="title-link" data-id="5">
-                    2025년 하반기 '청년리더멘토링' 멘티 모집 안내
+                <div>02</div>
+                <a class="title-link" data-id="2">
+                    2025년「세종청년리더멘토링」멘토 모집 공고
                     <span class="new-badge">NEW</span>
                 </a>
-                <div class="date">2025. 07. 15.</div>
-            </div>
-            <div class="notice-item">
-                <div>04</div>
-                <a class="title-link" data-id="4">세종시와 함께하는 취업 박람회 개최 소식</a>
-                <div class="date">2025. 07. 02.</div>
-            </div>
-            <div class="notice-item">
-                <div>03</div>
-                <a class="title-link" data-id="3">'청년의 길' 2분기 활동 보고서 공유</a>
-                <div class="date">2025. 06. 28.</div>
-            </div>
-            <div class="notice-item">
-                <div>02</div>
-                <a class="title-link" data-id="2">세종청년정책네트워크와 업무 협약(MOU) 체결</a>
-                <div class="date">2025. 06. 10.</div>
+                <div class="date">2025. 06. 05.</div>
             </div>
             <div class="notice-item">
                 <div>01</div>
-                <a class="title-link" data-id="1">'청년의 길' 홈페이지가 오픈되었습니다!</a>
-                <div class="date">2025. 06. 01.</div>
+                <a class="title-link" data-id="1">
+                    2025년「세종청년리더멘토링」멘티 모집 공고
+                    <span class="new-badge">NEW</span>
+                </a>
+                <div class="date">2025. 05. 31.</div>
             </div>
         </div>
     </section>
@@ -396,16 +221,12 @@
     <footer class="footer">
         <div class="container">
             <div class="logo">청년의 길</div>
-            <div class="email">
-                문의: <a href="mailto:wayofyouth044@gmail.com">wayofyouth044@gmail.com</a>
-            </div>
-            <p class="copyright">
-                © 2025 Way of Youth. All Rights Reserved.
-            </p>
+            <div class="email">문의: <a href="mailto:wayofyouth044@gmail.com">wayofyouth044@gmail.com</a></div>
+            <p class="copyright">© 2025 Way of Youth. All Rights Reserved.</p>
         </div>
     </footer>
 
-    <!-- 공지사항 모달 (HTML 구조 변경 없음) -->
+    <!-- 공지사항 모달 -->
     <div class="modal-overlay" id="noticeModal">
         <div class="modal-content">
             <span class="close-button" id="closeModal">×</span>
@@ -429,13 +250,73 @@
         }, { threshold: 0.1 });
         sections.forEach(section => observer.observe(section));
 
-        // --- 공지사항 게시판 기능 ---
+        // --- 공지사항 게시판 기능 (콘텐츠 업데이트) ---
         const postData = [
-            { id: 1, title: "'청년의 길' 홈페이지가 오픈되었습니다!", date: "2025. 06. 01.", content: "안녕하세요, '청년의 길'입니다.\n\n드디어 저희 단체의 공식 홈페이지가 문을 열었습니다.\n이곳을 통해 저희의 활동 소식을 전하고, 세종시 청년 여러분과 더 가깝게 소통하고자 합니다.\n\n많은 관심과 참여 부탁드립니다." },
-            { id: 2, title: "세종청년정책네트워크와 업무 협약(MOU) 체결", date: "2025. 06. 10.", content: "지난 6월 10일, '청년의 길'은 '세종청년정책네트워크'와 상호 협력을 위한 업무 협약을 체결했습니다.\n\n이번 협약을 통해 양 기관은 세종시 청년 정책 발굴 및 제안, 청년 권익 증진을 위한 사업 공동 추진 등 다방면에서 협력해나갈 예정입니다." },
-            { id: 3, title: "'청년의 길' 2분기 활동 보고서 공유", date: "2025. 06. 28.", content: "2025년 2분기 동안 '청년의 길'이 걸어온 발자취를 공유합니다.\n\n- '청년의 길' 설립 및 마을공동체 사업 선정\n- 1차 청년리더 포럼 개최\n- 세종시 청년 대상 수요 조사 진행\n\n자세한 내용은 첨부된 활동 보고서를 참고해주시기 바랍니다. (링크)" },
-            { id: 4, title: "세종시와 함께하는 취업 박람회 개최 소식", date: "2025. 07. 02.", content: "세종시 청년들의 성공적인 취업을 지원하기 위해 세종특별자치시청과 공동으로 '2025 세종 청년 취업 박람회'를 개최합니다.\n\n- 일시: 2025년 8월 15일(금) 10:00 ~ 17:00\n- 장소: 세종 컨벤션센터\n- 내용: 우수 기업 채용 상담, 현직자 멘토링, 이력서 컨설팅 등\n\n여러분의 많은 참여 바랍니다." },
-            { id: 5, title: "2025년 하반기 '청년리더멘토링' 멘티 모집 안내", date: "2025. 07. 15.", content: "'청년의 길'의 대표 프로그램, '청년리더멘토링' 하반기 멘티를 모집합니다.\n\n사회 각 분야의 전문가 멘토와 함께 성장하고 싶은 세종시 청년이라면 누구나 지원할 수 있습니다.\n\n- 모집 기간: 2025. 7. 15. ~ 7. 31.\n- 모집 대상: 세종시에 거주 또는 활동하는 만 19세 ~ 39세 청년\n- 신청 방법: 홈페이지 내 신청서 작성\n\n미래를 이끌어갈 여러분의 도전을 기다립니다." }
+            {
+                id: 1,
+                title: "2025년「세종청년리더멘토링」멘티 모집 공고",
+                date: "2025. 05. 31.",
+                content: `세종시 청년들의 성장을 지원할 '2025 세종청년리더멘토링'의 멘티를 모집합니다.
+
+Ⅰ. 사업 개요
+- 사업명: 2025년 세종청년리더멘토링
+- 주관/지원: 청년의길 / 세종특별자치시청
+- 사업기간: 2025년 5월 ~ 11월
+- 지원사항: 수료증 발급, 다과비 지원 등
+
+Ⅱ. 모집 안내 (멘티)
+- 지원 대상: 멘티 35명 (7개팀 내외 운영 지원)
+- 지원 자격: 관내 주민등록 거주, 관내 대학·직장에 소속된 청년 (19~39세)
+- 선발 기준: 세종청년리더멘토링에 관심을 갖고 활동에 적극적으로 참여할 수 있는 자, 사업목적에 부합한 자
+- 우대 사항: 청년의길 회원 및 청년활동가 경험자 (세종청년정책네트워크 회원 등)
+
+Ⅲ. 운영 일정
+- 멘티 신청 및 선발: 5월 ~ 6월 중
+- 멘토, 멘티 매칭: 6월 중
+- 멘토링: 6월 ~ 11월
+- 오리엔테이션: 6월 중
+- 성장 단계(봉사활동, 특강, 네트워킹): 8월 ~ 9월
+- 도약 단계(토론회, 성과공유회): 10월 ~ 11월
+
+Ⅳ. 신청 방법
+- 신청 기간: 2025. 5. 31.(토) ~ 6. 12.(목)
+- 신청 링크: https://naver.me/xdjXJVtY
+
+여러분의 많은 관심과 참여를 기다립니다.`
+            },
+            {
+                id: 2,
+                title: "2025년「세종청년리더멘토링」멘토 모집 공고",
+                date: "2025. 06. 05.",
+                content: `세종시 청년들에게 귀한 경험과 지혜를 나누어 주실 '2025 세종청년리더멘토링'의 멘토를 모집합니다.
+
+Ⅰ. 사업 개요
+- 사업명: 2025년 세종청년리더멘토링
+- 주관/지원: 청년의길 / 세종특별자치시청
+- 사업기간: 2025년 5월 ~ 11월
+- 지원사항: 수료증 발급, 다과비 지원 등
+
+Ⅱ. 모집 안내 (멘토)
+- 지원 대상: 멘토 7명
+- 지원 자격: 각 분야의 성공경험 또는 전문지식을 겸비한 분
+- 선발 기준: 세종청년리더멘토링에 관심을 갖고 활동에 적극적으로 참여할 수 있는 자, 사업목적에 부합한 자
+- 우대 사항: 관내 주민등록 거주, 관내 대학·직장에 소속된 자 또는 청년(19~39세)
+
+Ⅲ. 운영 일정
+- 멘토 선발 및 위촉: 6월 중
+- 멘토, 멘티 매칭: 6월 중
+- 멘토링: 6월 ~ 11월
+- 오리엔테이션: 6월 중
+- 성장 단계(봉사활동, 특강, 네트워킹): 8월 ~ 9월
+- 도약 단계(토론회, 성과공유회): 10월 ~ 11월
+
+Ⅳ. 신청 방법
+- 신청 기간: 2025. 6. 5.(목) ~ 6. 19.(목)
+  ※ 멘토 승인 하에 연중 모집 가능
+- 신청 링크: https://naver.me/GOhF22uy
+
+청년들의 든든한 길잡이가 되어주실 여러분의 참여를 기다립니다.`
+            }
         ];
 
         const noticeLinks = document.querySelectorAll('.title-link');
