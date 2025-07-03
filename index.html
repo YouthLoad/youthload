@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>청년의 길</title>
+    <title>청년의 길 - 단체 소개서</title>
     <style>
         /* Google Fonts: Noto Sans KR */
         @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&display=swap');
@@ -45,8 +45,19 @@
         a { text-decoration: none; color: inherit; }
         ul { list-style: none; }
         .container { max-width: 1100px; margin: 0 auto; padding: 0 2rem; }
-        section { padding: 120px 0; opacity: 0; transform: translateY(50px); transition: opacity 0.8s ease-out, transform 0.8s ease-out; }
-        section.visible { opacity: 1; transform: translateY(0); }
+        
+        /* [수정] 콘텐츠 섹션에만 등장 효과 적용 */
+        section { 
+            padding: 120px 0; 
+            opacity: 0; 
+            transform: translateY(50px); 
+            transition: opacity 0.8s ease-out, transform 0.8s ease-out; 
+        }
+        section.visible { 
+            opacity: 1; 
+            transform: translateY(0); 
+        }
+
         .section-title { text-align: center; margin-bottom: 60px; }
         .section-title h2 { font-size: 2.8rem; font-weight: 900; margin-bottom: 10px; color: #fff; text-shadow: 0 2px 10px rgba(0,0,0,0.1); }
         .section-title p { font-size: 1.2rem; color: rgba(255,255,255,0.8); }
@@ -54,6 +65,7 @@
             background: var(--glass-bg); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
             border-radius: 20px; border: var(--glass-border); box-shadow: var(--shadow); padding: 40px;
         }
+        
         .header {
             position: fixed; top: 0; left: 0; width: 100%; padding: 15px 0; z-index: 1000; transition: all 0.3s ease;
             background: rgba(255, 255, 255, 0.3); backdrop-filter: blur(15px); -webkit-backdrop-filter: blur(15px);
@@ -63,16 +75,43 @@
         .logo a { font-size: 1.5rem; font-weight: 700; color: var(--color-text); }
         .nav-menu ul { display: flex; gap: 30px; }
         .nav-menu a { font-weight: 500; color: #555; position: relative; padding: 5px 0; transition: color 0.3s ease; }
-        .nav-menu a::after {
-            content: ''; position: absolute; bottom: 0; left: 50%; transform: translateX(-50%);
-            width: 0; height: 2px; background: var(--color-primary); transition: width 0.3s ease;
-        }
         .nav-menu a:hover { color: var(--color-text); }
-        .nav-menu a:hover::after { width: 100%; }
-        #hero { height: 100vh; display: flex; align-items: center; justify-content: center; text-align: center; color: white; padding: 0; }
-        .hero-content { text-shadow: 0 3px 15px rgba(0,0,0,0.2); }
-        .hero-content h1 { font-size: 5rem; font-weight: 900; margin-bottom: 1rem; letter-spacing: -2px; }
-        .hero-content p { font-size: 1.6rem; font-weight: 400; }
+        
+        /* ================================== */
+        /*      스크롤 애니메이션 스타일 (수정됨)     */
+        /* ================================== */
+        #animation-trigger-area { /* ID 변경 및 스타일 적용 */
+            height: 300vh;
+            position: relative;
+        }
+        .sticky-container {
+            position: sticky;
+            top: 0;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+        }
+        .fixed-content {
+            color: white;
+            font-size: 6rem;
+            font-weight: 900;
+            text-shadow: 0 5px 20px rgba(0, 0, 0, 0.25);
+            z-index: 10;
+        }
+        #svg-canvas {
+            position: absolute; top: 0; left: 0;
+            width: 100%; height: 100%;
+            z-index: 5;
+        }
+        #animated-line {
+            fill: none; stroke: white; stroke-width: 6; stroke-linecap: round;
+            filter: drop-shadow(0 0 4px rgba(255, 255, 255, 0.8)) 
+                    drop-shadow(0 0 12px rgba(255, 255, 255, 0.6));
+        }
+
+        /* --- 나머지 섹션 스타일 --- */
         #vision .vision-content { text-align: center; padding: 80px 40px; }
         .vision-text .vision-quote { font-size: 2.8rem; font-weight: 700; margin-bottom: 30px; color: var(--color-primary); }
         .vision-text .purpose { max-width: 800px; margin: 0 auto; font-size: 1.1rem; line-height: 1.8; font-weight: 500; }
@@ -121,8 +160,10 @@
         .footer .email { margin-bottom: 20px; font-size: 1.1rem; }
         .footer .email a { color: var(--color-primary); font-weight: 500; }
         .footer .copyright { font-size: 0.9rem; color: rgba(255,255,255,0.7); }
+        
         @media (max-width: 768px) {
-            .nav-menu { display: none; } .hero-content h1 { font-size: 3.5rem; } .hero-content p { font-size: 1.2rem; }
+            .nav-menu { display: none; } 
+            .fixed-content { font-size: 3.5rem; }
             .section-title h2 { font-size: 2.2rem; } .glass-card { padding: 30px; } .modal-content { padding: 30px; }
             .notice-header, .notice-item { grid-template-columns: 1fr 4fr 2fr; padding: 10px 0; font-size: 0.9rem; }
         }
@@ -130,13 +171,12 @@
 </head>
 <body>
 
-    <!-- 헤더 -->
     <header class="header">
         <div class="container">
             <div class="logo"><a href="#">청년의 길</a></div>
             <nav class="nav-menu">
                 <ul>
-                    <li><a href="#hero">홈</a></li>
+                    <li><a href="#animation-trigger-area">홈</a></li>
                     <li><a href="#vision">비전</a></li>
                     <li><a href="#values">핵심가치</a></li>
                     <li><a href="#projects">주요사업</a></li>
@@ -146,10 +186,17 @@
         </div>
     </header>
 
-    <!-- 히어로 섹션 -->
-    <section id="hero">
-        <div class="hero-content"><h1>청년의 길</h1><p>서로의 길을 밝혀주는 청년과 세종</p></div>
-    </section>
+    <!-- [핵심 수정 1] <section>을 <div>로 변경하고, ID도 명확하게 수정 -->
+    <div id="animation-trigger-area">
+        <div class="sticky-container">
+            <div class="fixed-content">
+                청년의 길
+            </div>
+            <svg id="svg-canvas" viewBox="0 0 100 100" preserveAspectRatio="none">
+                <path id="animated-line" d="M -5,95 C 30,10 70,110 105,25" />
+            </svg>
+        </div>
+    </div>
 
     <!-- 비전과 목적 -->
     <section id="vision" class="container">
@@ -171,7 +218,7 @@
         </div>
     </section>
 
-    <!-- 주요 사업 -->
+    <!-- 이하 HTML은 변경 없음 -->
     <section id="projects" class="container">
         <div class="section-title"><h2>주요 사업</h2><p>청년의 성장을 위한 다양한 프로그램을 운영합니다.</p></div>
         <div class="projects-grid">
@@ -185,8 +232,6 @@
             </div>
         </div>
     </section>
-
-    <!-- 공지사항 (HTML 목록 업데이트) -->
     <section id="notice-board" class="container">
         <div class="section-title">
             <h2>공지사항</h2>
@@ -216,8 +261,6 @@
             </div>
         </div>
     </section>
-
-    <!-- 푸터 -->
     <footer class="footer">
         <div class="container">
             <div class="logo">청년의 길</div>
@@ -225,8 +268,6 @@
             <p class="copyright">© 2025 Way of Youth. All Rights Reserved.</p>
         </div>
     </footer>
-
-    <!-- 공지사항 모달 -->
     <div class="modal-overlay" id="noticeModal">
         <div class="modal-content">
             <span class="close-button" id="closeModal">×</span>
@@ -239,119 +280,71 @@
     </div>
 
     <script>
-        // --- 스크롤 애니메이션 ---
-        const sections = document.querySelectorAll('section');
-        const observer = new IntersectionObserver(entries => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('visible');
+        document.addEventListener('DOMContentLoaded', () => {
+
+            // --- 스크롤 라인 드로잉 애니메이션 로직 ---
+            const animationArea = document.querySelector('#animation-trigger-area');
+            const line = document.querySelector('#animated-line');
+            
+            if (animationArea && line) {
+                const pathLength = line.getTotalLength();
+                
+                line.style.strokeDasharray = pathLength;
+                line.style.strokeDashoffset = pathLength;
+
+                const handleLineDrawScroll = () => {
+                    const rect = animationArea.getBoundingClientRect();
+                    const animationScrollHeight = animationArea.offsetHeight - window.innerHeight;
+                    const scrollFraction = Math.max(0, Math.min(1, -rect.top / animationScrollHeight));
+                    
+                    if (scrollFraction >= 0) {
+                        const drawLength = pathLength * scrollFraction;
+                        line.style.strokeDashoffset = pathLength - drawLength;
+                    }
+                };
+                
+                window.addEventListener('scroll', handleLineDrawScroll);
+            }
+            
+            // --- 각 섹션 등장 애니메이션 ---
+            // [핵심 수정 2] querySelectorAll('section')은 이제 애니메이션 영역을 포함하지 않음
+            const sections = document.querySelectorAll('section');
+            const observer = new IntersectionObserver(entries => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                    }
+                });
+            }, { threshold: 0.1 });
+            sections.forEach(section => observer.observe(section));
+
+            // --- 공지사항 게시판 기능 ---
+            const postData = [
+                { id: 1, title: "2025년「세종청년리더멘토링」멘티 모집 공고", date: "2025. 05. 31.", content: `세종시 청년들의 성장을 지원할 '2025 세종청년리더멘토링'의 멘티를 모집합니다.\n\nⅠ. 사업 개요\n- 사업명: 2025년 세종청년리더멘토링\n- 주관/지원: 청년의길 / 세종특별자치시청\n- 사업기간: 2025년 5월 ~ 11월\n- 지원사항: 수료증 발급, 다과비 지원 등\n\nⅡ. 모집 안내 (멘티)\n- 지원 대상: 멘티 35명 (7개팀 내외 운영 지원)\n- 지원 자격: 관내 주민등록 거주, 관내 대학·직장에 소속된 청년 (19~39세)\n- 선발 기준: 세종청년리더멘토링에 관심을 갖고 활동에 적극적으로 참여할 수 있는 자, 사업목적에 부합한 자\n- 우대 사항: 청년의길 회원 및 청년활동가 경험자 (세종청년정책네트워크 회원 등)\n\nⅢ. 운영 일정\n- 멘티 신청 및 선발: 5월 ~ 6월 중\n- 멘토, 멘티 매칭: 6월 중\n- 멘토링: 6월 ~ 11월\n- 오리엔테이션: 6월 중\n- 성장 단계(봉사활동, 특강, 네트워킹): 8월 ~ 9월\n- 도약 단계(토론회, 성과공유회): 10월 ~ 11월\n\nⅣ. 신청 방법\n- 신청 기간: 2025. 5. 31.(토) ~ 6. 12.(목)\n- 신청 링크: https://naver.me/xdjXJVtY\n\n여러분의 많은 관심과 참여를 기다립니다.` },
+                { id: 2, title: "2025년「세종청년리더멘토링」멘토 모집 공고", date: "2025. 06. 05.", content: `세종시 청년들에게 귀한 경험과 지혜를 나누어 주실 '2025 세종청년리더멘토링'의 멘토를 모집합니다.\n\nⅠ. 사업 개요\n- 사업명: 2025년 세종청년리더멘토링\n- 주관/지원: 청년의길 / 세종특별자치시청\n- 사업기간: 2025년 5월 ~ 11월\n- 지원사항: 수료증 발급, 다과비 지원 등\n\nⅡ. 모집 안내 (멘토)\n- 지원 대상: 멘토 7명\n- 지원 자격: 각 분야의 성공경험 또는 전문지식을 겸비한 분\n- 선발 기준: 세종청년리더멘토링에 관심을 갖고 활동에 적극적으로 참여할 수 있는 자, 사업목적에 부합한 자\n- 우대 사항: 관내 주민등록 거주, 관내 대학·직장에 소속된 자 또는 청년(19~39세)\n\nⅢ. 운영 일정\n- 멘토 선발 및 위촉: 6월 중\n- 멘토, 멘티 매칭: 6월 중\n- 멘토링: 6월 ~ 11월\n- 오리엔테이션: 6월 중\n- 성장 단계(봉사활동, 특강, 네트워킹): 8월 ~ 9월\n- 도약 단계(토론회, 성과공유회): 10월 ~ 11월\n\nⅣ. 신청 방법\n- 신청 기간: 2025. 6. 5.(목) ~ 6. 19.(목)\n  ※ 멘토 승인 하에 연중 모집 가능\n- 신청 링크: https://naver.me/GOhF22uy\n\n청년들의 든든한 길잡이가 되어주실 여러분의 참여를 기다립니다.` }
+            ];
+
+            const noticeLinks = document.querySelectorAll('.title-link');
+            const modal = document.getElementById('noticeModal');
+            const closeModalBtn = document.getElementById('closeModal');
+            const modalTitle = document.getElementById('modalTitle');
+            const modalDate = document.getElementById('modalDate');
+            const modalBody = document.getElementById('modalBody');
+
+            const openModal = (id) => {
+                const post = postData.find(p => p.id === id);
+                if(post) {
+                    modalTitle.textContent = post.title;
+                    modalDate.textContent = post.date;
+                    modalBody.textContent = post.content;
+                    modal.classList.add('active');
                 }
-            });
-        }, { threshold: 0.1 });
-        sections.forEach(section => observer.observe(section));
+            };
+            const closeModal = () => modal.classList.remove('active');
 
-        // --- 공지사항 게시판 기능 (콘텐츠 업데이트) ---
-        const postData = [
-            {
-                id: 1,
-                title: "2025년「세종청년리더멘토링」멘티 모집 공고",
-                date: "2025. 05. 31.",
-                content: `세종시 청년들의 성장을 지원할 '2025 세종청년리더멘토링'의 멘티를 모집합니다.
-
-Ⅰ. 사업 개요
-- 사업명: 2025년 세종청년리더멘토링
-- 주관/지원: 청년의길 / 세종특별자치시청
-- 사업기간: 2025년 5월 ~ 11월
-- 지원사항: 수료증 발급, 다과비 지원 등
-
-Ⅱ. 모집 안내 (멘티)
-- 지원 대상: 멘티 35명 (7개팀 내외 운영 지원)
-- 지원 자격: 관내 주민등록 거주, 관내 대학·직장에 소속된 청년 (19~39세)
-- 선발 기준: 세종청년리더멘토링에 관심을 갖고 활동에 적극적으로 참여할 수 있는 자, 사업목적에 부합한 자
-- 우대 사항: 청년의길 회원 및 청년활동가 경험자 (세종청년정책네트워크 회원 등)
-
-Ⅲ. 운영 일정
-- 멘티 신청 및 선발: 5월 ~ 6월 중
-- 멘토, 멘티 매칭: 6월 중
-- 멘토링: 6월 ~ 11월
-- 오리엔테이션: 6월 중
-- 성장 단계(봉사활동, 특강, 네트워킹): 8월 ~ 9월
-- 도약 단계(토론회, 성과공유회): 10월 ~ 11월
-
-Ⅳ. 신청 방법
-- 신청 기간: 2025. 5. 31.(토) ~ 6. 12.(목)
-- 신청 링크: https://naver.me/xdjXJVtY
-
-여러분의 많은 관심과 참여를 기다립니다.`
-            },
-            {
-                id: 2,
-                title: "2025년「세종청년리더멘토링」멘토 모집 공고",
-                date: "2025. 06. 05.",
-                content: `세종시 청년들에게 귀한 경험과 지혜를 나누어 주실 '2025 세종청년리더멘토링'의 멘토를 모집합니다.
-
-Ⅰ. 사업 개요
-- 사업명: 2025년 세종청년리더멘토링
-- 주관/지원: 청년의길 / 세종특별자치시청
-- 사업기간: 2025년 5월 ~ 11월
-- 지원사항: 수료증 발급, 다과비 지원 등
-
-Ⅱ. 모집 안내 (멘토)
-- 지원 대상: 멘토 7명
-- 지원 자격: 각 분야의 성공경험 또는 전문지식을 겸비한 분
-- 선발 기준: 세종청년리더멘토링에 관심을 갖고 활동에 적극적으로 참여할 수 있는 자, 사업목적에 부합한 자
-- 우대 사항: 관내 주민등록 거주, 관내 대학·직장에 소속된 자 또는 청년(19~39세)
-
-Ⅲ. 운영 일정
-- 멘토 선발 및 위촉: 6월 중
-- 멘토, 멘티 매칭: 6월 중
-- 멘토링: 6월 ~ 11월
-- 오리엔테이션: 6월 중
-- 성장 단계(봉사활동, 특강, 네트워킹): 8월 ~ 9월
-- 도약 단계(토론회, 성과공유회): 10월 ~ 11월
-
-Ⅳ. 신청 방법
-- 신청 기간: 2025. 6. 5.(목) ~ 6. 19.(목)
-  ※ 멘토 승인 하에 연중 모집 가능
-- 신청 링크: https://naver.me/GOhF22uy
-
-청년들의 든든한 길잡이가 되어주실 여러분의 참여를 기다립니다.`
-            }
-        ];
-
-        const noticeLinks = document.querySelectorAll('.title-link');
-        const modal = document.getElementById('noticeModal');
-        const closeModalBtn = document.getElementById('closeModal');
-        const modalTitle = document.getElementById('modalTitle');
-        const modalDate = document.getElementById('modalDate');
-        const modalBody = document.getElementById('modalBody');
-
-        const openModal = (id) => {
-            const post = postData.find(p => p.id === id);
-            if(post) {
-                modalTitle.textContent = post.title;
-                modalDate.textContent = post.date;
-                modalBody.textContent = post.content;
-                modal.classList.add('active');
-            }
-        };
-
-        const closeModal = () => {
-            modal.classList.remove('active');
-        };
-
-        noticeLinks.forEach(link => {
-            link.addEventListener('click', () => {
-                const postId = parseInt(link.getAttribute('data-id'));
-                openModal(postId);
-            });
-        });
-
-        closeModalBtn.addEventListener('click', closeModal);
-        modal.addEventListener('click', (e) => {
-            if (e.target === modal) {
-                closeModal();
-            }
+            noticeLinks.forEach(link => link.addEventListener('click', () => openModal(parseInt(link.dataset.id))));
+            closeModalBtn.addEventListener('click', closeModal);
+            modal.addEventListener('click', (e) => { if (e.target === modal) closeModal(); });
         });
     </script>
 </body>
