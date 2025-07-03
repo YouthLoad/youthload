@@ -9,12 +9,13 @@
         @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&display=swap');
 
         :root {
-            --color-peach: #ffe5b4;
-            --color-primary: #E87A5D; 
-            --color-secondary: #ffca99;
+            --color-primary: #FFC074;
+            --color-secondary: #ffe5b4;
+            --color-accent: #FFF5E1;
             
-            --color-text: #3d352e;
-            --glass-bg: rgba(255, 255, 255, 0.45); /* 글라스 카드 배경 */
+            /* --color-text를 #000 (검은색) 또는 진한 회색으로 설정할 수 있습니다. */
+            --color-text: #333; 
+            --glass-bg: rgba(255, 255, 255, 0.45);
             --glass-border: 1px solid rgba(255, 255, 255, 0.2);
             --shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.1);
         }
@@ -25,7 +26,9 @@
         body {
             font-family: 'Noto Sans KR', sans-serif;
             color: var(--color-text);
-            background-color: var(--color-peach); 
+            background: linear-gradient(-45deg, var(--color-primary), var(--color-secondary), var(--color-accent));
+            background-size: 400% 400%;
+            animation: gradientBG 20s ease infinite;
             line-height: 1.7;
             overflow-x: hidden;
             position: relative;
@@ -33,39 +36,36 @@
         body::before {
             content: ''; position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
             background-image: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIzMDAiIGhlaWdodD0iMzAwIj48ZmlsdGVyIGlkPSJub2lzZSI+PGZlVHVyYnVsZW5jZSB0eXBlPSJmcmFjdGFsTm9pc2UiIGJhc2VGcmVxdWVuY3k9IjAuOCIgbnVtT2N0YXZlcz0iNCIgc3RpdGNoVGlsZXM9InN0aXRjaCIvPjxmZUNvbG9yTWF0cml4IHR5cGU9InNhdHVyYXRlIiB2YWx1ZXM9IjAiLz48L2ZpbHRlcj48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWx0ZXI9InVybCgjbnoaXNlKSIvPjwvc3ZnPg==');
-            opacity: 0.05;
-            z-index: -1;
+            opacity: 0.03; z-index: -1;
         }
-        
+        @keyframes gradientBG {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
         a { text-decoration: none; color: inherit; }
         ul { list-style: none; }
-        .container { max-width: 1100px; margin: 0 auto; padding: 0 2rem; }
+        .container { max-width: 1100px; margin: 0 auto; padding: 0 2rem; width: 100%; }
         
+        /* [수정 1] 섹션의 기본 스타일을 심플하게 변경 (페이드인 효과 제거) */
         section { 
-            padding: 120px 0; 
-            opacity: 0; 
-            transform: translateY(50px); 
-            transition: opacity 0.8s ease-out, transform 0.8s ease-out; 
-        }
-        section.visible { 
-            opacity: 1; 
-            transform: translateY(0); 
+            padding: 60px 0; /* 패딩 값 조정 */
         }
 
         .section-title { text-align: center; margin-bottom: 60px; }
+        /* [수정 2] 제목 글자색을 검은색 계열로 변경 */
         .section-title h2 { font-size: 2.8rem; font-weight: 900; margin-bottom: 10px; color: var(--color-text); text-shadow: 0 2px 10px rgba(0,0,0,0.1); }
-        .section-title p { font-size: 1.2rem; color: #5c5248; }
+        .section-title p { font-size: 1.2rem; color: #555; }
+        
         .glass-card {
             background: var(--glass-bg); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
             border-radius: 20px; border: var(--glass-border); box-shadow: var(--shadow); padding: 40px;
         }
         
-        /* [수정] 네비게이션 바(헤더)에 리퀴드 글라스 디자인 적용 */
         .header {
             position: fixed; top: 0; left: 0; width: 100%; padding: 15px 0; z-index: 1000; transition: all 0.3s ease;
-            background: rgba(255, 255, 255, 0.35); /* 반투명 흰색 배경 */
-            backdrop-filter: blur(15px); -webkit-backdrop-filter: blur(15px);
-            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+            background: rgba(255, 255, 255, 0.3); backdrop-filter: blur(15px); -webkit-backdrop-filter: blur(15px);
+            border-bottom: 1px solid rgba(255,255,255,0.1);
         }
         .header .container { display: flex; justify-content: space-between; align-items: center; }
         .logo a { font-size: 1.5rem; font-weight: 700; color: var(--color-text); }
@@ -73,82 +73,56 @@
         .nav-menu a { font-weight: 500; color: #555; position: relative; padding: 5px 0; transition: color 0.3s ease; }
         .nav-menu a:hover { color: var(--color-text); }
         
-        #animation-trigger-area {
-            height: 300vh;
+        /* ================================== */
+        /* [수정 3] 모든 섹션에 적용될 스크롤 애니메이션 스타일 */
+        /* ================================== */
+        .scrolly-section {
             position: relative;
+            /* 각 섹션이 화면에 머무는 스크롤 길이를 위해 뷰포트보다 높은 값 설정 */
+            height: 150vh; 
         }
-        .sticky-container {
+        .scrolly-section:first-child {
+            height: 300vh; /* 첫 화면은 SVG 라인 드로잉을 위해 더 길게 설정 */
+        }
+        .sticky-content-wrapper {
             position: sticky;
             top: 0;
             height: 100vh;
+            width: 100%;
             display: flex;
             justify-content: center;
             align-items: center;
             overflow: hidden;
         }
-        .fixed-content {
-            color: #4b3a25;
+
+        /* 첫 화면 전용 스타일 */
+        .home-content {
+            color: white;
             font-size: 6rem;
             font-weight: 900;
-            text-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+            text-shadow: 0 5px 20px rgba(0, 0, 0, 0.25);
             z-index: 10;
         }
-        #svg-canvas { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 5; }
+        #svg-canvas {
+            position: absolute; top: 0; left: 0;
+            width: 100%; height: 100%;
+            z-index: 5;
+        }
         #animated-line {
             fill: none; stroke: white; stroke-width: 6; stroke-linecap: round;
-            filter: drop-shadow(0 0 4px rgba(255, 255, 255, 0.8)) drop-shadow(0 0 12px rgba(255, 255, 255, 0.6));
+            filter: drop-shadow(0 0 4px rgba(255, 255, 255, 0.8)) 
+                    drop-shadow(0 0 12px rgba(255, 255, 255, 0.6));
         }
 
+        /* --- 나머지 섹션 스타일 --- */
         #vision .vision-content { text-align: center; padding: 80px 40px; }
         .vision-text .vision-quote { font-size: 2.8rem; font-weight: 700; margin-bottom: 30px; color: var(--color-primary); }
         .vision-text .purpose { max-width: 800px; margin: 0 auto; font-size: 1.1rem; line-height: 1.8; font-weight: 500; }
-        
-        /* ================================== */
-        /*      [수정] 핵심 가치 섹션 스타일       */
-        /* ================================== */
-        #values-trigger-area {
-            height: 300vh;
-            position: relative;
-        }
-
-        .value-card {
-            position: absolute;
-            width: 90%;
-            max-width: 800px; /* 카드의 최대 너비 설정 */
-            
-            /* Glassmorphism 스타일 적용 */
-            background: var(--glass-bg);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            border-radius: 25px;
-            border: var(--glass-border);
-            box-shadow: var(--shadow);
-            
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
-            padding: 60px 40px;
-            
-            /* 전환 효과 */
-            opacity: 0;
-            transform: translateY(30px) scale(0.98);
-            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
-            visibility: hidden;
-        }
-        .value-card.active {
-            opacity: 1;
-            transform: translateY(0) scale(1);
-            visibility: visible;
-        }
-        
-        /* [수정] 글라스 카드에 맞게 폰트/아이콘 크기 재조정 */
-        .value-card .icon { font-size: 4.5rem; margin-bottom: 30px; }
-        .value-card h3 { font-size: 2.8rem; font-weight: 900; margin-bottom: 20px; color: #4b3a25; }
-        .value-card p { font-size: 1.2rem; max-width: 500px; line-height: 1.7; }
-        
-        /* --- 나머지 섹션 스타일 --- */
+        .values-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 30px; }
+        .value-card { padding: 40px 30px; text-align: center; transition: transform 0.3s ease, box-shadow 0.3s ease; }
+        .value-card:hover { transform: translateY(-10px); box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1); }
+        .value-card .icon { font-size: 3rem; margin-bottom: 20px; color: var(--color-primary); }
+        .value-card h3 { font-size: 1.5rem; font-weight: 700; margin-bottom: 15px; }
         .projects-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 30px; }
         .project-card { transition: transform 0.3s ease; overflow: hidden; padding: 0; }
         .project-card:hover { transform: translateY(-10px); }
@@ -184,21 +158,17 @@
         .modal-body { line-height: 1.8; white-space: pre-wrap; color: #333; }
         .close-button { position: absolute; top: 20px; right: 25px; font-size: 2rem; color: #888; cursor: pointer; transition: color 0.3s ease; }
         .close-button:hover { color: var(--color-text); }
-        .footer { background-color: rgba(0,0,0,0.05); color: var(--color-text); padding: 50px 0; text-align: center; }
-        .footer .logo { font-size: 1.8rem; font-weight: 700; margin-bottom: 15px; }
+        .footer { background-color: #333; color: white; padding: 50px 0; text-align: center; }
+        .footer .logo { font-size: 1.8rem; font-weight: 700; margin-bottom: 15px; text-shadow: none; }
         .footer .email { margin-bottom: 20px; font-size: 1.1rem; }
         .footer .email a { color: var(--color-primary); font-weight: 500; }
-        .footer .copyright { font-size: 0.9rem; color: #5c5248; }
+        .footer .copyright { font-size: 0.9rem; color: rgba(255,255,255,0.7); }
         
         @media (max-width: 768px) {
             .nav-menu { display: none; } 
-            .fixed-content { font-size: 3.5rem; }
+            .home-content { font-size: 3.5rem; }
             .section-title h2 { font-size: 2.2rem; } .glass-card { padding: 30px; } .modal-content { padding: 30px; }
             .notice-header, .notice-item { grid-template-columns: 1fr 4fr 2fr; padding: 10px 0; font-size: 0.9rem; }
-            .value-card { padding: 40px 25px; }
-            .value-card h3 { font-size: 2.2rem; }
-            .value-card .icon { font-size: 3.5rem; }
-            .value-card p { font-size: 1rem; }
         }
     </style>
 </head>
@@ -209,19 +179,23 @@
             <div class="logo"><a href="#">청년의 길</a></div>
             <nav class="nav-menu">
                 <ul>
-                    <li><a href="#animation-trigger-area">홈</a></li>
-                    <li><a href="#vision">비전</a></li>
-                    <li><a href="#values-trigger-area">핵심가치</a></li>
-                    <li><a href="#projects">주요사업</a></li>
-                    <li><a href="#notice-board">공지사항</a></li>
+                    <!-- [수정 4] 네비게이션 링크를 각 scrolly-section의 ID로 변경 -->
+                    <li><a href="#home">홈</a></li>
+                    <li><a href="#vision-section">비전</a></li>
+                    <li><a href="#values-section">핵심가치</a></li>
+                    <li><a href="#projects-section">주요사업</a></li>
+                    <li><a href="#notice-section">공지사항</a></li>
                 </ul>
             </nav>
         </div>
     </header>
 
-    <div id="animation-trigger-area">
-        <div class="sticky-container">
-            <div class="fixed-content">
+    <!-- [수정 5] HTML 구조 변경: 모든 섹션을 scrolly-section > sticky-content-wrapper로 감쌈 -->
+
+    <!-- 홈 (SVG 애니메이션) -->
+    <div id="home" class="scrolly-section">
+        <div class="sticky-content-wrapper">
+            <div class="home-content">
                 청년의 길
             </div>
             <svg id="svg-canvas" viewBox="0 0 100 100" preserveAspectRatio="none">
@@ -231,72 +205,87 @@
     </div>
 
     <!-- 비전과 목적 -->
-    <section id="vision" class="container">
-        <div class="vision-content glass-card">
-            <div class="vision-text">
-                <div class="vision-quote">"서로의 길을 밝혀주는 청년과 세종"</div>
-                <p class="purpose">청년의 권리보호 및 신장, 정책참여 확대, 고용촉진, 능력개발, 복지향상을 통해 모든 영역에서 청년의 삶의 질을 향상하고 지방 활성화에 기여함을 목적으로 합니다.</p>
-            </div>
-        </div>
-    </section>
-
-    <!-- 핵심 가치 제목 -->
-    <section id="values" class="container">
-        <div class="section-title"><h2>핵심 가치</h2><p>배움과 협력을 통해 성장하는 공동체</p></div>
-    </section>
-
-    <!-- [수정] 핵심 가치 스크롤 애니메이션 영역 (디자인 변경됨) -->
-    <div id="values-trigger-area">
-        <div class="sticky-container">
-            <div class="value-card"><div class="icon">💡</div><h3>교육</h3><p>문제해결, 의사소통 등 청년의 역량강화를 위해 노력합니다.</p></div>
-            <div class="value-card"><div class="icon">🤝</div><h3>협력</h3><p>청년, 세종시 및 유관기관과의 긴밀한 네트워크를 통해 발전합니다.</p></div>
-            <div class="value-card"><div class="icon">🚀</div><h3>성장</h3><p>다양한 사업을 통해 청년의 삶의 질 향상과 지속가능한 성장을 실현합니다.</p></div>
+    <div id="vision-section" class="scrolly-section">
+        <div class="sticky-content-wrapper">
+            <section id="vision" class="container">
+                <div class="vision-content glass-card">
+                    <div class="vision-text">
+                        <div class="vision-quote">"서로의 길을 밝혀주는 청년과 세종"</div>
+                        <p class="purpose">청년의 권리보호 및 신장, 정책참여 확대, 고용촉진, 능력개발, 복지향상을 통해 모든 영역에서 청년의 삶의 질을 향상하고 지방 활성화에 기여함을 목적으로 합니다.</p>
+                    </div>
+                </div>
+            </section>
         </div>
     </div>
 
-    <!-- 이하 HTML은 변경 없음 -->
-    <section id="projects" class="container">
-        <div class="section-title"><h2>주요 사업</h2><p>청년의 성장을 위한 다양한 프로그램을 운영합니다.</p></div>
-        <div class="projects-grid">
-            <div class="project-card glass-card">
-                <img src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?q=80&w=2071&auto=format&fit=crop" alt="교육 프로그램">
-                <div class="text-content"><h3>교육 프로그램 운영</h3><p>세종청년리더멘토링, 봉사활동 등 청년의 역량과 사회성을 키우는 교육 프로그램을 제공합니다.</p></div>
-            </div>
-            <div class="project-card glass-card">
-                <img src="https://images.unsplash.com/photo-1540575467063-178a50c2df87?q=80&w=2070&auto=format&fit=crop" alt="네트워크 행사">
-                <div class="text-content"><h3>네트워크 행사 운영</h3><p>세종청년리더 포럼, 취·창업 특강 등 청년들이 교류하고 정보를 얻을 수 있는 기회를 만듭니다.</p></div>
-            </div>
+    <!-- 핵심 가치 -->
+    <div id="values-section" class="scrolly-section">
+        <div class="sticky-content-wrapper">
+            <section id="values" class="container">
+                <div class="section-title"><h2>핵심 가치</h2><p>배움과 협력을 통해 성장하는 공동체</p></div>
+                <div class="values-grid">
+                    <div class="value-card glass-card"><div class="icon">💡</div><h3>교육</h3><p>문제해결, 의사소통 등 청년의 역량강화를 위해 노력합니다.</p></div>
+                    <div class="value-card glass-card"><div class="icon">🤝</div><h3>협력</h3><p>청년, 세종시 및 유관기관과의 긴밀한 네트워크를 통해 발전합니다.</p></div>
+                    <div class="value-card glass-card"><div class="icon">🚀</div><h3>성장</h3><p>다양한 사업을 통해 청년의 삶의 질 향상과 지속가능한 성장을 실현합니다.</p></div>
+                </div>
+            </section>
         </div>
-    </section>
-    <section id="notice-board" class="container">
-        <div class="section-title">
-            <h2>공지사항</h2>
-            <p>'청년의 길'의 새로운 소식을 확인하세요.</p>
+    </div>
+
+    <!-- 주요 사업 -->
+    <div id="projects-section" class="scrolly-section">
+        <div class="sticky-content-wrapper">
+            <section id="projects" class="container">
+                <div class="section-title"><h2>주요 사업</h2><p>청년의 성장을 위한 다양한 프로그램을 운영합니다.</p></div>
+                <div class="projects-grid">
+                    <div class="project-card glass-card">
+                        <img src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?q=80&w=2071&auto=format&fit=crop" alt="교육 프로그램">
+                        <div class="text-content"><h3>교육 프로그램 운영</h3><p>세종청년리더멘토링, 봉사활동 등 청년의 역량과 사회성을 키우는 교육 프로그램을 제공합니다.</p></div>
+                    </div>
+                    <div class="project-card glass-card">
+                        <img src="https://images.unsplash.com/photo-1540575467063-178a50c2df87?q=80&w=2070&auto=format&fit=crop" alt="네트워크 행사">
+                        <div class="text-content"><h3>네트워크 행사 운영</h3><p>세종청년리더 포럼, 취·창업 특강 등 청년들이 교류하고 정보를 얻을 수 있는 기회를 만듭니다.</p></div>
+                    </div>
+                </div>
+            </section>
         </div>
-        <div class="notice-board-wrapper glass-card">
-            <div class="notice-header">
-                <div>번호</div>
-                <div>제목</div>
-                <div>작성일</div>
-            </div>
-            <div class="notice-item">
-                <div>02</div>
-                <a class="title-link" data-id="2">
-                    2025년「세종청년리더멘토링」멘토 모집 공고
-                    <span class="new-badge">NEW</span>
-                </a>
-                <div class="date">2025. 06. 05.</div>
-            </div>
-            <div class="notice-item">
-                <div>01</div>
-                <a class="title-link" data-id="1">
-                    2025년「세종청년리더멘토링」멘티 모집 공고
-                    <span class="new-badge">NEW</span>
-                </a>
-                <div class="date">2025. 05. 31.</div>
-            </div>
+    </div>
+
+    <!-- 공지사항 -->
+    <div id="notice-section" class="scrolly-section">
+        <div class="sticky-content-wrapper">
+            <section id="notice-board" class="container">
+                <div class="section-title">
+                    <h2>공지사항</h2>
+                    <p>'청년의 길'의 새로운 소식을 확인하세요.</p>
+                </div>
+                <div class="notice-board-wrapper glass-card">
+                    <div class="notice-header">
+                        <div>번호</div>
+                        <div>제목</div>
+                        <div>작성일</div>
+                    </div>
+                    <div class="notice-item">
+                        <div>02</div>
+                        <a class="title-link" data-id="2">
+                            2025년「세종청년리더멘토링」멘토 모집 공고
+                            <span class="new-badge">NEW</span>
+                        </a>
+                        <div class="date">2025. 06. 05.</div>
+                    </div>
+                    <div class="notice-item">
+                        <div>01</div>
+                        <a class="title-link" data-id="1">
+                            2025년「세종청년리더멘토링」멘티 모집 공고
+                            <span class="new-badge">NEW</span>
+                        </a>
+                        <div class="date">2025. 05. 31.</div>
+                    </div>
+                </div>
+            </section>
         </div>
-    </section>
+    </div>
+
     <footer class="footer">
         <div class="container">
             <div class="logo">청년의 길</div>
@@ -304,6 +293,7 @@
             <p class="copyright">© 2025 Way of Youth. All Rights Reserved.</p>
         </div>
     </footer>
+    
     <div class="modal-overlay" id="noticeModal">
         <div class="modal-content">
             <span class="close-button" id="closeModal">×</span>
@@ -316,64 +306,36 @@
     </div>
 
     <script>
-        // 자바스크립트는 이전과 동일하게 작동하므로 수정할 필요가 없습니다.
-        // CSS와 HTML의 구조 변경만으로 원하는 디자인과 기능을 모두 구현했습니다.
         document.addEventListener('DOMContentLoaded', () => {
-            const animationArea = document.querySelector('#animation-trigger-area');
+
+            // --- 스크롤 라인 드로잉 애니메이션 로직 ---
+            const homeSection = document.querySelector('#home');
             const line = document.querySelector('#animated-line');
-            const sections = document.querySelectorAll('section');
+            
+            if (homeSection && line) {
+                const pathLength = line.getTotalLength();
+                
+                line.style.strokeDasharray = pathLength;
+                line.style.strokeDashoffset = pathLength;
 
-            const valuesTriggerArea = document.querySelector('#values-trigger-area');
-            const valueCards = document.querySelectorAll('#values-trigger-area .value-card');
-
-            const handleScroll = () => {
-                if (animationArea && line) {
-                    const rect = animationArea.getBoundingClientRect();
-                    const animationScrollHeight = animationArea.offsetHeight - window.innerHeight;
+                const handleLineDrawScroll = () => {
+                    const rect = homeSection.getBoundingClientRect();
+                    // 뷰포트 높이를 뺀 스크롤 가능 영역 계산
+                    const animationScrollHeight = homeSection.offsetHeight - window.innerHeight;
+                    // 스크롤 진행률 (0~1 사이)
                     const scrollFraction = Math.max(0, Math.min(1, -rect.top / animationScrollHeight));
                     
                     if (scrollFraction >= 0) {
-                        const pathLength = line.getTotalLength();
-                        if(pathLength > 0) { // path가 로드된 후에만 실행
-                            line.style.strokeDasharray = pathLength;
-                            const drawLength = pathLength * scrollFraction;
-                            line.style.strokeDashoffset = pathLength - drawLength;
-                        }
+                        const drawLength = pathLength * scrollFraction;
+                        line.style.strokeDashoffset = pathLength - drawLength;
                     }
-                }
-
-                if (valuesTriggerArea && valueCards.length > 0) {
-                    const rect = valuesTriggerArea.getBoundingClientRect();
-                    const scrollHeight = valuesTriggerArea.offsetHeight - window.innerHeight;
-                    const scrollFraction = Math.max(0, Math.min(1, -rect.top / scrollHeight));
-
-                    const activeIndex = Math.min(
-                        valueCards.length - 1,
-                        Math.floor(scrollFraction * valueCards.length)
-                    );
-
-                    valueCards.forEach((card, index) => {
-                        if (index === activeIndex) {
-                            card.classList.add('active');
-                        } else {
-                            card.classList.remove('active');
-                        }
-                    });
-                }
-            };
+                };
+                
+                window.addEventListener('scroll', handleLineDrawScroll);
+            }
             
-            const observer = new IntersectionObserver(entries => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        entry.target.classList.add('visible');
-                    }
-                });
-            }, { threshold: 0.1 });
-            sections.forEach(section => observer.observe(section));
-
-            window.addEventListener('scroll', handleScroll);
-            handleScroll(); // 초기 로드 시 실행
-
+            // [수정 6] 기존 Intersection Observer 로직 제거
+            
             // --- 공지사항 게시판 기능 ---
             const postData = [
                 { id: 1, title: "2025년「세종청년리더멘토링」멘티 모집 공고", date: "2025. 05. 31.", content: `세종시 청년들의 성장을 지원할 '2025 세종청년리더멘토링'의 멘티를 모집합니다.\n\nⅠ. 사업 개요\n- 사업명: 2025년 세종청년리더멘토링\n- 주관/지원: 청년의길 / 세종특별자치시청\n- 사업기간: 2025년 5월 ~ 11월\n- 지원사항: 수료증 발급, 다과비 지원 등\n\nⅡ. 모집 안내 (멘티)\n- 지원 대상: 멘티 35명 (7개팀 내외 운영 지원)\n- 지원 자격: 관내 주민등록 거주, 관내 대학·직장에 소속된 청년 (19~39세)\n- 선발 기준: 세종청년리더멘토링에 관심을 갖고 활동에 적극적으로 참여할 수 있는 자, 사업목적에 부합한 자\n- 우대 사항: 청년의길 회원 및 청년활동가 경험자 (세종청년정책네트워크 회원 등)\n\nⅢ. 운영 일정\n- 멘티 신청 및 선발: 5월 ~ 6월 중\n- 멘토, 멘티 매칭: 6월 중\n- 멘토링: 6월 ~ 11월\n- 오리엔테이션: 6월 중\n- 성장 단계(봉사활동, 특강, 네트워킹): 8월 ~ 9월\n- 도약 단계(토론회, 성과공유회): 10월 ~ 11월\n\nⅣ. 신청 방법\n- 신청 기간: 2025. 5. 31.(토) ~ 6. 12.(목)\n- 신청 링크: https://naver.me/xdjXJVtY\n\n여러분의 많은 관심과 참여를 기다립니다.` },
