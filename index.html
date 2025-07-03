@@ -9,9 +9,10 @@
         @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&display=swap');
 
         :root {
-            --color-primary: #ffac81;
-            --color-secondary: #ff928b;
-            --color-accent: #fec3a6;
+            --color-primary: #FFB3A7;
+            --color-secondary: #FFD1BA;
+            --color-accent: #FFF9D4;
+            
             --color-text: #333;
             --glass-bg: rgba(255, 255, 255, 0.45);
             --glass-border: 1px solid rgba(255, 255, 255, 0.2);
@@ -32,7 +33,7 @@
         body {
             font-family: 'Noto Sans KR', sans-serif;
             color: var(--color-text);
-            background: linear-gradient(-45deg, #ffc3a0, #ffafbd, #fec3a6, #fff5e1);
+            background: linear-gradient(-45deg, var(--color-primary), var(--color-secondary), var(--color-accent));
             background-size: 400% 400%;
             animation: gradientBG 20s ease infinite;
             line-height: 1.7;
@@ -40,7 +41,6 @@
             position: relative;
         }
 
-        /* --- Glassmorphism Enhancements --- */
         body::before {
             content: '';
             position: fixed;
@@ -59,16 +59,9 @@
             100% { background-position: 0% 50%; }
         }
 
-        a {
-            text-decoration: none;
-            color: inherit;
-        }
+        a { text-decoration: none; color: inherit; }
+        ul { list-style: none; }
 
-        ul {
-            list-style: none;
-        }
-
-        /* --- 공통 레이아웃 --- */
         .container {
             max-width: 1100px;
             margin: 0 auto;
@@ -82,10 +75,7 @@
             transition: opacity 0.8s ease-out, transform 0.8s ease-out;
         }
 
-        section.visible {
-            opacity: 1;
-            transform: translateY(0);
-        }
+        section.visible { opacity: 1; transform: translateY(0); }
 
         .section-title {
             text-align: center;
@@ -105,7 +95,6 @@
             color: rgba(255,255,255,0.8);
         }
 
-        /* --- Glass Card --- */
         .glass-card {
             background: var(--glass-bg);
             backdrop-filter: blur(20px);
@@ -116,7 +105,6 @@
             padding: 40px;
         }
 
-        /* --- 헤더 --- */
         .header {
             position: fixed;
             top: 0;
@@ -130,20 +118,10 @@
             -webkit-backdrop-filter: blur(15px);
             border-bottom: 1px solid rgba(255,255,255,0.1);
         }
-        .header .container {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-        .logo a {
-            font-size: 1.5rem;
-            font-weight: 700;
-            color: var(--color-text);
-        }
-        .nav-menu ul {
-            display: flex;
-            gap: 30px;
-        }
+
+        .header .container { display: flex; justify-content: space-between; align-items: center; }
+        .logo a { font-size: 1.5rem; font-weight: 700; color: var(--color-text); }
+        .nav-menu ul { display: flex; gap: 30px; }
         .nav-menu a {
             font-weight: 500;
             color: #555;
@@ -162,14 +140,9 @@
             background: var(--color-primary);
             transition: width 0.3s ease;
         }
-        .nav-menu a:hover {
-            color: var(--color-text);
-        }
-        .nav-menu a:hover::after {
-            width: 100%;
-        }
+        .nav-menu a:hover { color: var(--color-text); }
+        .nav-menu a:hover::after { width: 100%; }
 
-        /* --- 히어로 섹션 --- */
         #hero {
             height: 100vh;
             display: flex;
@@ -179,99 +152,28 @@
             color: white;
             padding: 0;
         }
-        .hero-content {
-            text-shadow: 0 3px 15px rgba(0,0,0,0.2);
-        }
-        .hero-content h1 {
-            font-size: 5rem;
-            font-weight: 900;
-            margin-bottom: 1rem;
-            letter-spacing: -2px;
-        }
-        .hero-content p {
-            font-size: 1.6rem;
-            font-weight: 400;
-        }
+        .hero-content { text-shadow: 0 3px 15px rgba(0,0,0,0.2); }
+        .hero-content h1 { font-size: 5rem; font-weight: 900; margin-bottom: 1rem; letter-spacing: -2px; }
+        .hero-content p { font-size: 1.6rem; font-weight: 400; }
         
-        /* --- 비전 (Vision) 섹션 --- */
-        #vision .vision-content {
-            text-align: center;
-            padding: 80px 40px;
-        }
-        .vision-text .vision-quote {
-            font-size: 2.8rem;
-            font-weight: 700;
-            margin-bottom: 30px;
-            color: var(--color-secondary);
-        }
-        .vision-text .purpose {
-            max-width: 800px;
-            margin: 0 auto;
-            font-size: 1.1rem;
-            line-height: 1.8;
-            font-weight: 500;
-        }
+        #vision .vision-content { text-align: center; padding: 80px 40px; }
+        .vision-text .vision-quote { font-size: 2.8rem; font-weight: 700; margin-bottom: 30px; color: var(--color-primary); }
+        .vision-text .purpose { max-width: 800px; margin: 0 auto; font-size: 1.1rem; line-height: 1.8; font-weight: 500; }
 
-        /* --- 핵심 가치 (Values) 섹션 --- */
-        .values-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 30px;
-        }
-        .value-card {
-            padding: 40px 30px;
-            text-align: center;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-        }
-        .value-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
-        }
-        .value-card .icon {
-            font-size: 3rem;
-            margin-bottom: 20px;
-            color: var(--color-primary);
-        }
-        .value-card h3 {
-            font-size: 1.5rem;
-            font-weight: 700;
-            margin-bottom: 15px;
-        }
+        .values-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 30px; }
+        .value-card { padding: 40px 30px; text-align: center; transition: transform 0.3s ease, box-shadow 0.3s ease; }
+        .value-card:hover { transform: translateY(-10px); box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1); }
+        .value-card .icon { font-size: 3rem; margin-bottom: 20px; color: var(--color-primary); }
+        .value-card h3 { font-size: 1.5rem; font-weight: 700; margin-bottom: 15px; }
 
-        /* --- 주요 사업 (Projects) 섹션 - 수정됨 --- */
-        .projects-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-            gap: 30px;
-        }
-        .project-card {
-            transition: transform 0.3s ease;
-            overflow: hidden;
-            padding: 0;
-        }
-        .project-card:hover {
-            transform: translateY(-10px);
-        }
-        .project-card img {
-            width: 100%;
-            height: 220px;
-            object-fit: cover;
-            display: block;
-        }
-        .project-card .text-content {
-            padding: 30px;
-        }
-        .project-card h3 {
-            font-size: 1.6rem;
-            font-weight: 700;
-            color: var(--color-secondary);
-            margin-bottom: 10px;
-        }
+        .projects-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 30px; }
+        .project-card { transition: transform 0.3s ease; overflow: hidden; padding: 0; }
+        .project-card:hover { transform: translateY(-10px); }
+        .project-card img { width: 100%; height: 220px; object-fit: cover; display: block; }
+        .project-card .text-content { padding: 30px; }
+        .project-card h3 { font-size: 1.6rem; font-weight: 700; color: var(--color-primary); margin-bottom: 10px; }
         
-        /* --- 공지사항 (Notice Board) 섹션 - 수정됨 --- */
-        .notice-board-wrapper {
-            padding: 20px 30px;
-        }
+        .notice-board-wrapper { padding: 20px 30px; }
         .notice-header, .notice-item {
             display: grid;
             grid-template-columns: 1fr 5fr 2fr;
@@ -280,46 +182,21 @@
             text-align: center;
             border-bottom: 1px solid rgba(0,0,0,0.1);
         }
-        .notice-header {
-            font-weight: 700;
-            color: var(--color-text);
-            font-size: 1.1rem;
-            border-bottom: 2px solid var(--color-accent);
-        }
-        .notice-item:last-child {
-            border-bottom: none;
-        }
-        .notice-item .title-link {
-            text-align: left;
-            transition: color 0.3s ease;
-            cursor: pointer;
-            font-weight: 500;
-        }
-        .notice-item .title-link:hover {
-            color: var(--color-primary);
-        }
-        .notice-item .date {
-            color: #666;
-            font-size: 0.9rem;
-        }
-        .notice-item .new-badge {
-            background-color: var(--color-secondary);
-            color: white;
-            font-size: 0.7rem;
-            padding: 2px 6px;
-            border-radius: 5px;
-            margin-left: 8px;
-            font-weight: bold;
-        }
+        .notice-header { font-weight: 700; color: var(--color-text); font-size: 1.1rem; border-bottom: 2px solid var(--color-secondary); }
+        .notice-item:last-child { border-bottom: none; }
+        .notice-item .title-link { text-align: left; transition: color 0.3s ease; cursor: pointer; font-weight: 500; }
+        .notice-item .title-link:hover { color: var(--color-primary); }
+        .notice-item .date { color: #666; font-size: 0.9rem; }
+        .notice-item .new-badge { background-color: var(--color-primary); color: white; font-size: 0.7rem; padding: 2px 6px; border-radius: 5px; margin-left: 8px; font-weight: bold; }
 
-        /* --- 공지사항 모달 --- */
+        /* --- 공지사항 모달 (스타일 변경) --- */
         .modal-overlay {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0,0,0,0.5);
+            background: rgba(0,0,0,0.6); /* 배경을 조금 더 어둡게 */
             z-index: 2000;
             display: none;
             justify-content: center;
@@ -327,11 +204,19 @@
             opacity: 0;
             transition: opacity 0.3s ease;
         }
-        .modal-overlay.active {
-            display: flex;
-            opacity: 1;
-        }
+        .modal-overlay.active { display: flex; opacity: 1; }
+        
         .modal-content {
+            /* 모달 전용 밝은 글래스 스타일 적용 */
+            background: rgba(255, 253, 250, 0.95); /* 거의 불투명한 따뜻한 흰색 배경 */
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            border-radius: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+            padding: 40px;
+
+            /* 레이아웃 및 크기 설정 */
             max-width: 700px;
             width: 90%;
             max-height: 80vh;
@@ -340,26 +225,13 @@
             transform: scale(0.9);
             transition: transform 0.3s ease;
         }
-        .modal-overlay.active .modal-content {
-            transform: scale(1);
-        }
-        .modal-header {
-            padding-bottom: 15px;
-            border-bottom: 1px solid rgba(0,0,0,0.1);
-            margin-bottom: 20px;
-        }
-        .modal-header h2 {
-            font-size: 1.8rem;
-            margin-bottom: 5px;
-        }
-        .modal-header .date {
-            font-size: 0.9rem;
-            color: #555;
-        }
-        .modal-body {
-            line-height: 1.8;
-            white-space: pre-wrap; /* 줄바꿈 유지 */
-        }
+        .modal-overlay.active .modal-content { transform: scale(1); }
+        
+        .modal-header { padding-bottom: 15px; border-bottom: 1px solid rgba(0,0,0,0.1); margin-bottom: 20px; }
+        .modal-header h2 { font-size: 1.8rem; margin-bottom: 5px; color: #222; }
+        .modal-header .date { font-size: 0.9rem; color: #555; }
+        .modal-body { line-height: 1.8; white-space: pre-wrap; color: #333; }
+        
         .close-button {
             position: absolute;
             top: 20px;
@@ -369,35 +241,14 @@
             cursor: pointer;
             transition: color 0.3s ease;
         }
-        .close-button:hover {
-            color: var(--color-text);
-        }
+        .close-button:hover { color: var(--color-text); }
 
         /* --- 푸터 --- */
-        .footer {
-            background-color: transparent;
-            color: white;
-            padding: 50px 0;
-            text-align: center;
-        }
-        .footer .logo {
-            font-size: 1.8rem;
-            font-weight: 700;
-            margin-bottom: 15px;
-            text-shadow: 0 1px 5px rgba(0,0,0,0.1);
-        }
-        .footer .email {
-            margin-bottom: 20px;
-            font-size: 1.1rem;
-        }
-         .footer .email a {
-            color: var(--color-primary);
-            font-weight: 500;
-        }
-        .footer .copyright {
-            font-size: 0.9rem;
-            color: rgba(255,255,255,0.7);
-        }
+        .footer { background-color: transparent; color: white; padding: 50px 0; text-align: center; }
+        .footer .logo { font-size: 1.8rem; font-weight: 700; margin-bottom: 15px; text-shadow: 0 1px 5px rgba(0,0,0,0.1); }
+        .footer .email { margin-bottom: 20px; font-size: 1.1rem; }
+        .footer .email a { color: var(--color-primary); font-weight: 500; }
+        .footer .copyright { font-size: 0.9rem; color: rgba(255,255,255,0.7); }
 
         /* --- 반응형 디자인 --- */
         @media (max-width: 768px) {
@@ -406,11 +257,8 @@
             .hero-content p { font-size: 1.2rem; }
             .section-title h2 { font-size: 2.2rem; }
             .glass-card { padding: 30px; }
-            .notice-header, .notice-item {
-                grid-template-columns: 1fr 4fr 2fr;
-                padding: 10px 0;
-                font-size: 0.9rem;
-            }
+            .modal-content { padding: 30px; }
+            .notice-header, .notice-item { grid-template-columns: 1fr 4fr 2fr; padding: 10px 0; font-size: 0.9rem; }
         }
     </style>
 </head>
@@ -477,7 +325,7 @@
         </div>
     </section>
 
-    <!-- 주요 사업 (디자인 개선) -->
+    <!-- 주요 사업 -->
     <section id="projects" class="container">
         <div class="section-title">
             <h2>주요 사업</h2>
@@ -501,7 +349,7 @@
         </div>
     </section>
 
-    <!-- 공지사항 (기능 추가) -->
+    <!-- 공지사항 -->
     <section id="notice-board" class="container">
         <div class="section-title">
             <h2>공지사항</h2>
@@ -513,7 +361,6 @@
                 <div>제목</div>
                 <div>작성일</div>
             </div>
-            <!-- JavaScript로 클릭 이벤트가 추가될 아이템들 -->
             <div class="notice-item">
                 <div>05</div>
                 <a class="title-link" data-id="5">
@@ -558,9 +405,9 @@
         </div>
     </footer>
 
-    <!-- 공지사항 모달 -->
+    <!-- 공지사항 모달 (HTML 구조 변경 없음) -->
     <div class="modal-overlay" id="noticeModal">
-        <div class="modal-content glass-card">
+        <div class="modal-content">
             <span class="close-button" id="closeModal">×</span>
             <div class="modal-header">
                 <h2 id="modalTitle"></h2>
