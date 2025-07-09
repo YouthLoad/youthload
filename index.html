@@ -150,6 +150,14 @@
         
         /* --- [매우 중요] 모바일 반응형 스타일 (768px 이하) --- */
         @media (max-width: 768px) {
+            
+            /* ▼▼▼▼▼ [수정된 부분 1] ▼▼▼▼▼ */
+            /* 제안해주신 대로 모바일에서 body에 padding-top을 주어 헤더 공간을 확보합니다. */
+            body {
+                padding-top: 65px;
+            }
+            /* ▲▲▲▲▲ [여기까지 수정] ▲▲▲▲▲ */
+
             .container { padding: 0 1.5rem; }
             section { padding: 60px 0; }
 
@@ -173,21 +181,24 @@
             .nav-menu ul { flex-direction: column; align-items: center; gap: 20px; }
             .nav-menu a { font-size: 1.2rem; color: var(--color-text); padding: 10px 20px; }
             .mobile-nav-toggle { display: block; }
-
+            
             .scrolly-section {
                 height: auto; 
                 margin-bottom: 20px; 
+                /* 모든 섹션의 margin-top이 0이 되도록 초기화 (body의 padding으로 제어) */
+                margin-top: 0;
             }
-            /* ▼▼▼▼▼ [수정된 부분] ▼▼▼▼▼ */
+            
+            /* ▼▼▼▼▼ [수정된 부분 2] ▼▼▼▼▼ */
+            /* 첫 번째 섹션은 헤더를 제외한 나머지 화면을 꽉 채우도록 수정합니다. */
             .scrolly-section:first-child {
-                height: 100vh;
-                min-height: 500px;
+                height: calc(100vh - 65px); /* 헤더 높이를 뺀 나머지 뷰포트 높이 */
+                min-height: 400px;
                 display: flex;
-                align-items: center;
-                justify-content: center;
+                align-items: center; /* 수직 중앙 정렬 */
+                justify-content: center; /* 수평 중앙 정렬 */
                 margin-bottom: 40px;
-                padding-top: 65px; /* 헤더 높이(65px)만큼 상단 여백 추가 */
-                box-sizing: border-box; /* 패딩이 높이에 포함되도록 보장 */
+                padding-top: 0; /* body에 padding이 적용되었으므로 개별 패딩은 제거 */
             }
             /* ▲▲▲▲▲ [여기까지 수정] ▲▲▲▲▲ */
             
