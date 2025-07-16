@@ -25,7 +25,8 @@ const DisplayManager = (() => {
 
         // URL을 찾아 <a> 태그로 변환하는 정규식
         const urlRegex = /(https?:\/\/[^\s]+)/g;
-        let processedContent = post.content.replace(urlRegex, '<a href="$1" target="_blank" rel="noopener noreferrer">$1</a>');
+        // <a> 태그에 파란색과 밑줄 스타일을 추가
+        let processedContent = post.content.replace(urlRegex, '<a href="$1" target="_blank" rel="noopener noreferrer" style="color: #007bff; text-decoration: underline;">$1</a>');
 
         // 줄 바꿈 문자를 <br> 태그로 변환
         processedContent = processedContent.replace(/\n/g, '<br>');
