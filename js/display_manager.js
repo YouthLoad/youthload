@@ -22,7 +22,17 @@ const DisplayManager = (() => {
     function showModal(post) {
         modalTitle.textContent = post.title;
         modalDate.textContent = post.date;
-        modalBody.textContent = post.content;
+
+        // URL을 찾아 <a> 태그로 변환하는 정규식
+        const urlRegex = /(https?:\/\/[^\s]+)/g;
+        let processedContent = post.content.replace(urlRegex, '<a href="$1" target="_blank" rel="noopener noreferrer">$1</a>');
+
+        // 줄 바꿈 문자를 <br> 태그로 변환
+        processedContent = processedContent.replace(/\n/g, '<br>');
+
+        // textContent 대신 innerHTML을 사용하여 HTML 태그를 렌더링
+        modalBody.innerHTML = processedContent;
+        
         modal.classList.add('active');
         document.body.classList.add('nav-open'); // 모달 열릴 때 스크롤 방지
     }
